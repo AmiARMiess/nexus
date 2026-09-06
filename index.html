@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS — Infrastructure for the next era</title>
+
+<!-- THEME ENGINE: no dependencies, runs before paint, survives even if 3D fails -->
+<script>
+  (function () {
+    try { if (localStorage.getItem('nexus-theme') === 'light') document.documentElement.classList.add('light'); } catch (e) {}
+    window.__isLight = function () { return document.documentElement.classList.contains('light'); };
+    window.__setTheme = function (light) {
+      document.documentElement.classList.toggle('light', light);
+      try { localStorage.setItem('nexus-theme', light ? 'light' : 'dark'); } catch (e) {}
+      window.dispatchEvent(new CustomEvent('themechange', { detail: { light: light } }));
+    };
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('#themeToggle')) window.__setTheme(!window.__isLight());
+    });
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="scene"></canvas>
+
+<header class="nav">
+  <div class="container nav-in">
+    <a class="logo" href="#top">NEXUS</a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#platform">Platform</a>
+      <a href="#numbers">Numbers</a>
+      <a href="#docs">Docs</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark / light theme">
+        <span class="icon-moon">☾</span>
+        <span class="icon-sun">☀</span>
+      </button>
+      <a class="btn btn-ghost" href="#">Sign in</a>
+      <a class="btn btn-primary" href="#">Start building →</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="container hero-in">
+    <span class="pill">✦ Now in public beta · v2.4</span>
+    <h1>The infrastructure<br>layer that <em>thinks</em><br>with your team</h1>
+    <p class="lede">NEXUS connects your models, data and agents into one observable plane — so every decision is grounded in the same truth.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#">Start free trial</a>
+      <a class="btn btn-ghost" href="#">Watch 2-min demo</a>
+    </div>
+    <div class="scroll-hint">Scroll to explore ↓</div>
+  </div>
+</section>
+
+<section class="block" id="features">
+  <div class="container">
+    <div class="eyebrow">Capabilities</div>
+    <h2>Built for teams shipping<br>at the edge of what's possible.</h2>
+    <div class="features">
+      <div class="card glass"><div class="num">01</div><h3>Unified Observability</h3><p>Every request, token, and agent decision — traced end to end. Replay any conversation to understand exactly what happened.</p></div>
+      <div class="card glass"><div class="num">02</div><h3>Composable Agents</h3><p>Mix and match tools, models and guardrails. Ship agents like features — with tests, versions and rollbacks.</p></div>
+      <div class="card glass"><div class="num">03</div><h3>Real-time Memory</h3><p>A persistent context graph that remembers across sessions, users and teams. Search it with natural language.</p></div>
+      <div class="card glass"><div class="num">04</div><h3>Policy as Code</h3><p>Define what agents can do in code. Review changes in PRs. Enforce them at the runtime — not as an afterthought.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block dark" id="platform">
+  <div class="container">
+    <div class="eyebrow">Platform</div>
+    <h2>One plane. Every surface.</h2>
+    <div class="stats">
+      <div class="stat"><div class="big">99.99<span>%</span></div><div class="lbl">Uptime across regions</div></div>
+      <div class="stat"><div class="big">&lt; 42<span>ms</span></div><div class="lbl">Median response time</div></div>
+      <div class="stat"><div class="big">3.1<span>B</span></div><div class="lbl">Events processed / day</div></div>
+      <div class="stat"><div class="big">SOC 2</div><div class="lbl">Type II · HIPAA · ISO</div></div>
+    </div>
+    <div class="logos">
+      <span>NimbusHQ</span><span>◈ vexatech</span><span>CORE LOOP</span><span>flint ➤</span><span>Quantiq</span><span>Parallax</span>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="numbers">
+  <div class="container split">
+    <div>
+      <div class="eyebrow">Why teams switch</div>
+      <h2>Your stack shouldn't<br>feel like a puzzle.</h2>
+    </div>
+    <p class="lede-side">Most teams glue together six tools and call it a platform. NEXUS ships as one runtime — same primitives for prompts, agents, memory, policies and observability. Less surface area. Fewer surprises.</p>
+  </div>
+</section>
+
+<section class="block" id="docs">
+  <div class="container">
+    <div class="eyebrow">Get started</div>
+    <h2>From zero to production<br>in a weekend.</h2>
+    <div class="code-card glass">
+      <div class="code-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="file">quickstart.ts</span></div>
+      <pre class="code"><span class="k">import</span> { Nexus } <span class="k">from</span> <span class="s">'@nexus/sdk'</span>;
+
+<span class="k">const</span> nx = <span class="k">new</span> <span class="fn">Nexus</span>({ project: <span class="s">'my-app'</span> });
+
+<span class="k">const</span> agent = nx.<span class="fn">agent</span>({
+  tools: [<span class="s">'search'</span>, <span class="s">'email'</span>, <span class="s">'calendar'</span>],
+  memory: <span class="s">'shared'</span>,
+  policy: <span class="s">'./policies/readonly.yaml'</span>,
+});
+
+<span class="k">await</span> agent.<span class="fn">run</span>(<span class="s">'Summarize this week and draft my Monday.'</span>);</pre>
+    </div>
+  </div>
+</section>
+
+<section class="cta-footer">
+  <div class="container">
+    <h2>Ready to ship<br>what's next?</h2>
+    <p>Start building on the free tier. Upgrade when you're ready to scale.</p>
+    <div class="cta-buttons">
+      <a class="btn btn-primary big" href="#">Create your workspace →</a>
+      <a class="btn btn-ghost" href="#">Talk to an engineer</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="container foot-in">
+    <div class="foot-brand">
+      <a class="logo" href="#top">NEXUS</a>
+      <p>Infrastructure for the next era of intelligent software.</p>
+    </div>
+    <div><h5>Product</h5><a href="#features">Features</a><a href="#platform">Platform</a><a href="#docs">Docs</a><a href="#">Changelog</a></div>
+    <div><h5>Company</h5><a href="#">About</a><a href="#">Careers</a><a href="#">Security</a><a href="#">Press</a></div>
+    <div><h5>Community</h5><a href="#">GitHub</a><a href="#">Discord</a><a href="#">Twitter / X</a><a href="#">Blog</a></div>
+  </div>
+  <div class="container foot-bottom">
+    <span>© 2026 NEXUS Labs</span>
+    <span class="legal"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Status</a></span>
+  </div>
+  <div class="watermark" aria-hidden="true">NEXUS</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
